@@ -1,421 +1,579 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabanita Bag for OpenSesame</title>
+    <title>Portfolio | Nabanita Bag</title>
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translate3d(0, 20px, 0); }
-            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        /* Custom enhancements */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
-        
-        .slide-enter { opacity: 0; transform: translateX(100%); }
-        .slide-enter-active { opacity: 1; transform: translateX(0); transition: all 700ms ease-in-out; }
-        .slide-exit { opacity: 1; transform: translateX(0); }
-        .slide-exit-active { opacity: 0; transform: translateX(-100%); transition: all 700ms ease-in-out; }
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: move 10s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+        .book-decoration {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('photos/book.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 h-screen overflow-hidden">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-    <div id="root"></div>
+    <!-- Background Blobs for Visual Flair -->
+    <div class="blob bg-purple-300 w-64 h-64 rounded-full top-0 left-0 mix-blend-multiply"></div>
+    <div class="blob bg-yellow-300 w-64 h-64 rounded-full top-0 right-0 mix-blend-multiply animation-delay-2000"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        // Icon components using Lucide CDN - simpler approach
-        const createIconComponent = (iconName) => {
-            return ({ className = "", ...props }) => {
-                const iconRef = React.useRef(null);
-                useEffect(() => {
-                    if (iconRef.current && window.lucide) {
-                        window.lucide.createIcons();
-                    }
-                });
-                return <i ref={iconRef} data-lucide={iconName} className={className} {...props}></i>;
-            };
-        };
-
-        const ChevronRight = createIconComponent('chevron-right');
-        const ChevronLeft = createIconComponent('chevron-left');
-        const Terminal = createIconComponent('terminal');
-        const Cpu = createIconComponent('cpu');
-        const Zap = createIconComponent('zap');
-        const Brain = createIconComponent('brain');
-        const Rocket = createIconComponent('rocket');
-        const Heart = createIconComponent('heart');
-        const Mail = createIconComponent('mail');
-        const Linkedin = createIconComponent('linkedin');
-        const Github = createIconComponent('github');
-        const Code = createIconComponent('code');
-        const Database = createIconComponent('database');
-        const Layers = createIconComponent('layers');
-        const Mic = createIconComponent('mic');
-
-        const BarChart = ({ data, color = "bg-blue-500" }) => (
-            <div className="flex flex-col space-y-3 w-full max-w-lg mx-auto p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                {data.map((item, index) => (
-                    <div key={index} className="space-y-1">
-                        <div className="flex justify-between text-sm font-bold text-slate-700">
-                            <span>{item.label}</span>
-                            <span>{item.value}</span>
-                        </div>
-                        <div className="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
-                            <div 
-                                className={`h-full ${color} transition-all duration-1000 ease-out`} 
-                                style={{ width: item.width }}
-                            ></div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
-
-        const ImpactCard = ({ icon: Icon, title, desc, delay }) => (
-            <div className={`flex items-start p-4 bg-white rounded-xl shadow-lg transform transition-all hover:-translate-y-1 duration-300 animate-fade-in-up`} style={{ animationDelay: `${delay}ms` }}>
-                <div className="p-3 bg-orange-100 rounded-lg mr-4">
-                    <Icon className="w-6 h-6 text-orange-600" />
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-bold text-2xl text-indigo-600">Portfolio | Nabanita Bag</span>
                 </div>
-                <div>
-                    <h3 className="font-bold text-slate-800">{title}</h3>
-                    <p className="text-sm text-slate-600 mt-1">{desc}</p>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">About</a>
+                    <a href="#experience" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Experience</a>
+                    <a href="#internships" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Internships</a>
+                <a href="#education" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Education</a>
+                <a href="#achievements" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Achievements</a>
+                    <a href="#projects" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Projects</a>
+                    <a href="#writing" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Writing</a>
+                    <a href="#contact" class="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium transition">Contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-indigo-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
                 </div>
             </div>
-        );
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden bg-white border-b border-gray-200" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#experience" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#internships" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Internships</a>
+                <a href="#education" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Education</a>
+                <a href="#achievements" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Achievements</a>
+                <a href="#projects" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#writing" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Writing</a>
+                <a href="#contact" class="block text-indigo-600 font-bold hover:bg-gray-50 px-3 py-2 rounded-md text-base">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-        const ProjectCard = ({ icon: Icon, title, tech, desc, delay }) => (
-            <div className="flex flex-col p-5 bg-white rounded-xl shadow-md border-l-4 border-orange-500 hover:shadow-xl transition-all animate-fade-in-up h-full" style={{ animationDelay: `${delay}ms` }}>
-                <div className="flex justify-between items-center mb-3">
-                    <h3 className="font-bold text-lg text-slate-800 leading-tight">{title}</h3>
-                    <Icon className="w-5 h-5 text-slate-400" />
-                </div>
-                <div className="mb-3">
-                    <span className="inline-block bg-slate-100 text-slate-600 text-xs font-mono px-2 py-1 rounded border border-slate-200">
-                        {tech}
-                    </span>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                    {desc}
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center relative">
+        <!-- Book image background in hero section -->
+        <div class="book-decoration"></div>
+        <div class="w-full md:w-3/5 pr-0 md:pr-12 text-center md:text-left mt-8 md:mt-0 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+                Hi, I'm <span class="text-indigo-600">Nabanita.</span> You can call me Nab.
+            </h1>
+            
+            <div class="space-y-6 text-gray-700 leading-relaxed">
+                <p class="text-lg">
+                    I'm a techie who loves building meaningful technology with empathy, curiosity, and a global mindset. Whether I'm architecting backend systems or exploring ethical AI, I'm driven by the desire to make tech kinder, smarter, and more inclusive.
                 </p>
+                
+                <blockquote class="border-l-4 border-indigo-500 pl-4 italic text-gray-600 my-6">
+                    "Nothing of me is original. I am the combined effort of every man person I have ever known."
+                    <footer class="text-sm mt-2 not-italic">— Chuck Palahniuk</footer>
+                </blockquote>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">What I'm into:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 ml-2">
+                        <li>Backend wizardry (or witchery!?) with Java, Python and AWS</li>
+                        <li>Exploring global cultures and sustainable tech solutions</li>
+                        <li>Machine learning (teaching computers to be as curious as I am)</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Currently:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 ml-2">
+                        <li>MS Computer Sciences at University of Wisconsin-Madison. Trying not to freeze solid 🥶!</li>
+                        <li>Worked at Salesforce and Qualcomm. (I'm collecting Big Tech experiences like Pokémon).</li>
+                        <li>Interned at American Express, Bangalore (Yeah, some finance shenanigan there!)</li>
+                        <li>Documenting my journey through tech, life, and learning</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Reach out to me at:</h3>
+                    <ul class="space-y-1 text-gray-700 ml-2">
+                        <li><a href="https://pages.cs.wisc.edu/~nbag/" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline">https://pages.cs.wisc.edu/~nbag/</a></li>
+                        <li><a href="mailto:nabanita.m.bag@gmail.com" class="text-indigo-600 hover:text-indigo-800 underline">nabanita.m.bag@gmail.com</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Fun Facts:</h3>
+                    <ul class="space-y-2 text-gray-700 ml-2">
+                        <li>I'm equally at home in bookstores and terminal windows</li>
+                        <li>I love deep conversations—from philosophy to programming to psychology.</li>
+                        <li>I speak four languages: English, Bengali, Java and Sarcasm.</li>
+                    </ul>
+                </div>
             </div>
-        );
+            
+            <div class="flex justify-center md:justify-start space-x-4 mt-8">
+                <a href="#projects" class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1">View Work</a>
+                <a href="https://github.com/nabanitabag" target="_blank" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition"><i class="fab fa-github mr-2"></i>GitHub</a>
+                <a href="https://x.com/nabanita_bag" target="_blank" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition"><i class="fab fa-x-twitter mr-2"></i>Twitter</a>
+            </div>
+        </div>
+        <div class="w-full md:w-2/5 flex justify-center relative z-10 -mt-8 md:-mt-12">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                <img src="photos/fire.jpeg" alt="Nabanita Bag" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
 
-        function App() {
-            const [currentSlide, setCurrentSlide] = useState(0);
-            const totalSlides = 6; // Increased from 5 to 6
-
-            const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
-            const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-
-            useEffect(() => {
-                const handleKeyDown = (e) => {
-                    if (e.key === 'ArrowRight') nextSlide();
-                    if (e.key === 'ArrowLeft') prevSlide();
-                };
-                window.addEventListener('keydown', handleKeyDown);
-                return () => window.removeEventListener('keydown', handleKeyDown);
-            }, []);
-
-            // Initialize Lucide icons
-            useEffect(() => {
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
-            }, [currentSlide]);
-
-            return (
-                <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-orange-200 overflow-hidden flex flex-col">
-                    
-                    {/* Progress Bar */}
-                    <div className="w-full h-2 bg-slate-200">
-                        <div 
-                            className="h-full bg-orange-500 transition-all duration-500"
-                            style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
-                        />
+    <!-- Skills Section -->
+    <section id="about" class="py-20 bg-white relative overflow-hidden">
+        <!-- Video background -->
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-20 z-0">
+            <source src="photos/chic.mp4" type="video/mp4">
+        </video>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 relative z-10">
+                <h2 class="text-3xl font-bold text-gray-900">Technical Skills</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                        <i class="fas fa-code text-xl"></i>
                     </div>
-
-                    {/* Main Content Area */}
-                    <div className="flex-1 relative w-full max-w-5xl mx-auto p-6 md:p-12 flex flex-col justify-center">
-                        
-                        {/* Slide 0: The Hook */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 0 ? 'block' : 'hidden'}`}>
-                            <div className="text-center space-y-6">
-                                <div className="inline-block p-4 bg-orange-100 rounded-full mb-4 animate-bounce">
-                                    <Rocket className="w-12 h-12 text-orange-600" />
-                                </div>
-                                <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
-                                    Hello, <span className="text-orange-600">OpenSesame</span>.
-                                </h1>
-                                <p className="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                                    I'm <span className="font-bold text-slate-800">Nabanita Bag</span>. <br/>
-                                    I optimize clouds, build backend systems, and teach AI to behave.
-                                </p>
-                                <div className="pt-8">
-                                    <button 
-                                        onClick={nextSlide}
-                                        className="group px-8 py-4 bg-orange-600 text-white rounded-full font-bold text-lg hover:bg-orange-700 transition-all shadow-lg hover:shadow-orange-500/30 flex items-center gap-2 mx-auto"
-                                    >
-                                        Start The Pitch <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
-                                    </button>
-                                    <p className="text-sm text-slate-400 mt-4">(Use Arrow Keys to Navigate)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 1: The Stats (Impact) */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 1 ? 'block' : 'hidden'}`}>
-                            <div className="grid md:grid-cols-2 gap-12 items-center">
-                                <div className="space-y-6">
-                                    <h2 className="text-3xl font-bold text-slate-900">Why Me? <br/><span className="text-orange-600">The Data.</span></h2>
-                                    <p className="text-lg text-slate-600">
-                                        With 5 years of engineering experience across Salesforce & Qualcomm, I don't just write code; I build systems that survive massive scale. I also love memes.
-                                    </p>
-                                    <div className="flex gap-4">
-                                        <div className="p-4 bg-blue-50 rounded-lg text-center w-1/3">
-                                            <div className="text-3xl font-bold text-blue-600">5.5M+</div>
-                                            <div className="text-xs text-slate-500 font-semibold uppercase">Users Supported</div>
-                                        </div>
-                                        <div className="p-4 bg-purple-50 rounded-lg text-center w-1/3">
-                                            <div className="text-3xl font-bold text-purple-600">41k+</div>
-                                            <div className="text-xs text-slate-500 font-semibold uppercase">Sites Managed</div>
-                                        </div>
-                                        <div className="p-4 bg-green-50 rounded-lg text-center w-1/3">
-                                            <div className="text-3xl font-bold text-green-600">100%</div>
-                                            <div className="text-xs text-slate-500 font-semibold uppercase">Commitment</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div className="bg-slate-100 p-6 rounded-2xl shadow-inner">
-                                    <h3 className="text-sm font-bold text-slate-400 uppercase mb-4 tracking-wider">Skill Distribution</h3>
-                                    <BarChart 
-                                        color="bg-orange-500"
-                                        data={[
-                                            { label: "Backend Scalability (Salesforce)", value: "Expert", width: "95%" },
-                                            { label: "System Design", value: "Advanced", width: "90%" },
-                                            { label: "AI/ML Integration (EinsteinGPT)", value: "High", width: "85%" },
-                                            { label: "Firmware/Hardware (Qualcomm)", value: "Okayish", width: "60%" },
-                                            { label: "Meme Consumption", value: "Critical Levels", width: "100%" },
-                                        ]} 
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 2: Projects (NEW SECTION) */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 2 ? 'block' : 'hidden'}`}>
-                            <div className="max-w-6xl mx-auto">
-                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
-                                    What I've <span className="text-orange-600">Built</span>
-                                </h2>
-                                
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {/* Project 1: Tableau Agent */}
-                                    <ProjectCard 
-                                        delay={0}
-                                        icon={Mic}
-                                        title="Tableau Accessibility Agent"
-                                        tech="GenAI • LLM • Salesforce Einstein"
-                                        desc="Developed a Generative AI voice agent to simplify user management via natural language interface. Integrated Al Intent classifiers with Salesforce Einstein Transcribe LLM."
-                                    />
-                                    
-                                    {/* Project 2: Open Source */}
-                                    <ProjectCard 
-                                        delay={100}
-                                        icon={Github}
-                                        title="EasySSL (Open Source)"
-                                        tech="Java 17 • Spring Boot 3.5 • Maven"
-                                        desc="Upgraded core platform of a mutual-TLS Spring Boot library. Refactored code to remove deprecations and updated Cl configurations for Tomcat/Jetty support."
-                                    />
-                                    
-                                    {/* Project 3: Fitness ML */}
-                                    <ProjectCard 
-                                        delay={200}
-                                        icon={Brain}
-                                        title="Body Fitness Prediction"
-                                        tech="Python • Flask • ML Algorithms"
-                                        desc="Built an ML system analyzing activity vs. mood correlations. Applied various algorithms to training datasets to establish correlations between daily steps and mental state."
-                                    />
-
-                                    {/* Project 4: Amex DB Layer (From Experience) */}
-                                    <ProjectCard 
-                                        delay={300}
-                                        icon={Database}
-                                        title="Payment Network Layer"
-                                        tech="Java • Redis • Lettuce Client"
-                                        desc="Engineered a database abstraction layer for American Express to modernize the payment network, resulting in significantly faster query times using Key-Value operations."
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 3: Why OpenSesame? (Formerly Slide 2) */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 3 ? 'block' : 'hidden'}`}>
-                            <div className="max-w-4xl mx-auto">
-                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
-                                    The <span className="text-orange-600">Career Fit</span>
-                                </h2>
-                                
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <ImpactCard 
-                                        delay={0}
-                                        icon={Terminal}
-                                        title="Engineering Scale"
-                                        desc="I've spent years optimizing systems for millions of users at Salesforce. I want to bring that enterprise-grade reliability to the learning ecosystem."
-                                    />
-                                     <ImpactCard 
-                                        delay={100}
-                                        icon={Heart}
-                                        title="Passion for Education"
-                                        desc="I have experience in mentoring underprivileged kids. OpenSesame isn't just a job; it's the professional scaling of my personal mission."
-                                    />
-                                     <ImpactCard 
-                                        delay={200}
-                                        icon={Cpu}
-                                        title="Full Stack Reality"
-                                        desc="From Bluetooth firmware at Qualcomm to Cloud Microservices. I understand the whole stack, not just the top layer."
-                                    />
-                                     <ImpactCard 
-                                        delay={300}
-                                        icon={Zap}
-                                        title="The Goal"
-                                        desc="I want to work where 'Learning' meets 'High Tech'. OpenSesame is the gym where I want to train my engineering muscles next."
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 4: The AI Vision (Formerly Slide 3) */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 4 ? 'block' : 'hidden'}`}>
-                            <div className="flex flex-col md:flex-row items-center gap-12">
-                                <div className="md:w-1/2 space-y-6">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-bold">
-                                        <Brain className="w-4 h-4" /> The AI Philosophy
-                                    </div>
-                                    <h2 className="text-4xl font-bold text-slate-900 leading-tight">
-                                        AI isn't here to replace us. <br/>
-                                        <span className="text-purple-600">It's here to stop us from being boring.</span>
-                                    </h2>
-                                    <div className="prose prose-lg text-slate-600">
-                                        <p>
-                                            What excites me most about AI? It's the ability to act as a 
-                                            <span className="font-bold text-slate-800"> personal tutor for every single employee</span> on the planet, simultaneously.
-                                        </p>
-                                        <p>
-                                            At Salesforce, I integrated EinsteinGPT to make data accessible. At OpenSesame, I see AI as the ultimate "Un-blocker." It handles the rote memorization drills so humans can focus on the complex, creative chaos we're actually good at.
-                                        </p>
-                                        <p className="italic text-sm text-slate-400">
-                                            (Also, debugging AI hallucinations is arguably more fun than debugging race conditions.)
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <div className="md:w-1/2 relative">
-                                   {/* Decorative graphical element representing "Future of Work" */}
-                                   <div className="bg-slate-900 rounded-2xl p-6 text-green-400 font-mono text-sm shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
-                                      <div className="flex gap-2 mb-4">
-                                          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                      </div>
-                                      <p className="opacity-50">// The Future of Work</p>
-                                      <p><span className="text-purple-400">const</span> <span className="text-yellow-300">learningJourney</span> = <span className="text-blue-400">await</span> ai.personalize({'{'}</p>
-                                      <div className="pl-4">
-                                          <p>user: <span className="text-orange-300">"Human"</span>,</p>
-                                          <p>style: <span className="text-orange-300">"Interactive"</span>,</p>
-                                          <p>boringStuff: <span className="text-red-400">false</span>,</p>
-                                          <p>impact: <span className="text-orange-300">"Maximum"</span></p>
-                                      </div>
-                                      <p>{'}'});</p>
-                                      <p className="mt-4 animate-pulse">_Cursor blinking...</p>
-                                   </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 5: Conclusion (Formerly Slide 4) */}
-                        <div className={`transition-opacity duration-500 ${currentSlide === 5 ? 'block' : 'hidden'}`}>
-                           <div className="text-center max-w-2xl mx-auto space-y-8">
-                             <h2 className="text-4xl font-bold text-slate-900">Let's Build the Future of Learning.</h2>
-                             <p className="text-xl text-slate-600">
-                               I bring the energy of a teacher, the discipline of an Enterprise Engineer (Salesforce), and the curiosity of a TA (UW-Madison).
-                             </p>
-                             
-                             <div className="bg-white p-8 rounded-2xl shadow-xl space-y-4">
-                               <h3 className="font-bold text-slate-400 uppercase tracking-wider text-sm">Contact Details</h3>
-                               <div className="flex flex-col items-center gap-3">
-                                 <h4 className="text-2xl font-bold text-slate-900">Nabanita Bag</h4>
-                                 <div className="flex gap-4 mt-2">
-                                   <a href="mailto:nabanita.m.bag@gmail.com" className="p-3 bg-slate-100 rounded-full hover:bg-orange-100 hover:text-orange-600 transition-colors">
-                                     <Mail className="w-6 h-6" />
-                                   </a>
-                                   <button className="p-3 bg-slate-100 rounded-full hover:bg-blue-100 hover:text-blue-600 transition-colors">
-                                     <Linkedin className="w-6 h-6" />
-                                   </button>
-                                   <button className="p-3 bg-slate-100 rounded-full hover:bg-slate-200 hover:text-black transition-colors">
-                                     <Github className="w-6 h-6" />
-                                   </button>
-                                 </div>
-                                 <p className="text-slate-500 mt-4">nabanita.m.bag@gmail.com</p>
-                               </div>
-                             </div>
-
-                             <button 
-                                onClick={() => setCurrentSlide(0)}
-                                className="text-slate-400 hover:text-orange-600 text-sm font-semibold transition-colors"
-                              >
-                                Restart Presentation
-                              </button>
-                           </div>
-                        </div>
-
+                    <h3 class="text-xl font-bold mb-2">Languages & Frameworks</h3>
+                    <p class="text-gray-600">Java, Python, C/C++, JavaScript, Spring Boot, React.js</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                        <i class="fas fa-cloud text-xl"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-2">Cloud & Systems</h3>
+                    <p class="text-gray-600">AWS (DynamoDB, SQS, SNS), Docker, Kubernetes, CI/CD</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
+                        <i class="fas fa-brain text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
+                    <p class="text-gray-600">PyTorch, AI Agents, LLM Integrations</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    {/* Navigation Footer */}
-                    <div className="p-6 flex justify-between items-center max-w-5xl mx-auto w-full text-slate-400 text-sm">
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Experience</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Job 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-indigo-600 relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                         <div>
-                            Slide {currentSlide + 1} of {totalSlides}
+                            <h3 class="text-xl font-bold text-gray-900">Senior Member of Technical Staff</h3>
+                            <p class="text-indigo-600 font-medium">Salesforce | Bangalore</p>
                         </div>
-                        <div className="flex gap-2">
-                            <button 
-                                onClick={prevSlide}
-                                disabled={currentSlide === 0}
-                                className="p-2 rounded-full hover:bg-slate-200 disabled:opacity-30 transition-colors"
-                            >
-                                <ChevronLeft className="w-6 h-6" />
-                            </button>
-                            <button 
-                                onClick={nextSlide}
-                                disabled={currentSlide === totalSlides - 1}
-                                className="p-2 rounded-full hover:bg-slate-200 disabled:opacity-30 transition-colors"
-                            >
-                                <ChevronRight className="w-6 h-6" />
-                            </button>
-                        </div>
+                        <span class="text-gray-500 text-sm mt-2 md:mt-0">Dec 2021 - Aug 2025</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <h4 class="font-bold" >Tableau Cloud Manager and Email and Notification services</h3>
+
+                        <li>Developed and deployed a distributed, scalable multi-tenant cloud solution for user management using DynamoDB and SQS.</li>
+                        <li>Delivered key global control plane services supporting 41K+ sites and 5.5M+ users.</li>
+                        <li>Designed site migration flows to support migration of sites with 200K+ users.</li>
+                        <li>Took initiatives to reduce high-severity issues and decrease turnaround time for fixes. Won a company hackathon with a project on auto-deleting and scaling Tableau Pods. Collaborated with product, design, and QA teams to drive continuous improvement and rapid iteration. </li>
+                        <h4 class="font-bold" >Energy and Utilities applications</h3>
+<li> Served 10M+ customers by building 3 Enterprise applications using Java, Spring, SFDC including a B2C self-serve portal for customer companies of Utilities to check/pay their bills, set up auto-payment, discover high bill concerns, and chat with agents for the Industries cloud. Worked on Submit Meter Read components for the web application.</li>
+<li> Upgraded functionality and user experience by developing 12 REST APIs & 30+ Lightning Web Components. Technologies used: Java, PostgreSQL</li>
+                    </ul>
+                    </div>
+                    <!-- Salesforce image -->
+                    <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+                        <img src="photos/sf.jpeg" alt="Salesforce" class="w-full h-full object-cover rounded-lg shadow-md">
                     </div>
                 </div>
-            );
-        }
 
-        // Use createRoot if available (React 18), otherwise fallback to render
-        const rootElement = document.getElementById('root');
-        if (ReactDOM.createRoot) {
-            const root = ReactDOM.createRoot(rootElement);
-            root.render(<App />);
-        } else {
-            ReactDOM.render(<App />, rootElement);
-        }
+                <!-- Job 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-blue-500 relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Engineer</h3>
+                            <p class="text-blue-600 font-medium">Qualcomm | Hyderabad</p>
+                        </div>
+                        <span class="text-gray-500 text-sm mt-2 md:mt-0">July 2020 - Dec 2021</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Shipped an improved enhanced logging mechanism for xSCO protocol to detect various levels of latencies, thus reducing multiple hours of efforts in debugging latency related issues.</li> 
+<li> Worked on connection link quality algorithm for Bluetooth Audio software from providing design docs to implementation and code optimization for various Snapdragon SoCs.</li>
+                        <li>Collaborated with partners like Google and Samsung on feature integration.</li>
+                        <li>Wrote Python scripts to convert raw Snoop text logs to audio waveforms. Developed an in-house Java tool reducing triage time by 32%.</li>
+                    </ul>
+                    </div>
+                    <!-- Qualcomm image -->
+                    <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+                        <img src="photos/qualcomm.jpeg" alt="Qualcomm" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Internship Experience Section -->
+    <section id="internships" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Internship Experience</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+                </div>
+
+            <div class="space-y-8">
+                <!-- Internship 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-cyan-500 relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Technology Intern</h3>
+                            <p class="text-cyan-600 font-medium">American Express | Bangalore</p>
+                        </div>
+                        <span class="text-gray-500 text-sm mt-2 md:mt-0">Summer 2019</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Engineered a database abstraction layer using Java and Redis to modernize payment networks.</li>
+                        <li>Optimized query times and implemented graceful shutdown/health checks.</li>
+                    </ul>
+                    </div>
+                    <!-- American Express image -->
+                    <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+                        <img src="photos/amex.jpg" alt="American Express" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Projects</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-code-branch text-6xl text-green-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Open Source: EasySSL</h3>
+                        <p class="text-gray-600 text-sm mb-4">Upgraded core platform of the mutual-TLS Spring Boot library to Spring Boot 3.5.0 and Java 17, resolving dependencies and legacy code.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Java</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Spring Boot</span>
+                        </div>
+                        <span class="text-indigo-600 font-medium text-sm">View PR &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 - Tableau (Center) -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center overflow-hidden">
+                        <img src="photos/tabagent.png" alt="Tableau Accessibility Agent" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Tableau Accessibility Agent</h3>
+                        <p class="text-gray-600 text-sm mb-4">Gen AI voice agent to simplify Tableau user/site management via a natural language interface using Salesforce Einstein Transcribe.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Gen AI</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">LLM</span>
+                        </div>
+                        <span class="text-indigo-600 font-medium text-sm">View Details &rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100">
+                    <div class="h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-running text-6xl text-purple-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Body Fitness Prediction</h3>
+                        <p class="text-gray-600 text-sm mb-4">ML project analyzing activity vs mood correlations. Built using Flask and Python to determine if exercise promotes increased daily step counts.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Python</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Flask</span>
+                        </div>
+                        <span class="text-indigo-600 font-medium text-sm">View Code &rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Education</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Education 1 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-indigo-600 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Master of Science in Computer Sciences</h3>
+                                <p class="text-indigo-600 font-medium">University of Wisconsin - Madison</p>
+                            </div>
+                            <span class="text-gray-500 text-sm mt-2 md:mt-0">Aug 2025 - Dec 2026</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Pursuing advanced studies in computer sciences with a focus on machine learning.</p>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Teaching Assistant: </h4>
+                            <p class="text-gray-600">CS 537: Operating Systems</p>
+                        </div>
+                        <br>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Relevant Courses: </h4>
+                            <p class="text-gray-600">CS 760: Machine Learning, CS 540: Artificial Intelligence</p>
+                        </div>
+                    </div>
+                    <!-- Morgridge image -->
+                    <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+                        <img src="photos/morgridgeNab.jpeg" alt="Morgridge" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+
+                <!-- Education 2 -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-blue-500 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Bachelor of Technology in Electronics and Communication Engineering</h3>
+                                <p class="text-blue-600 font-medium">Motilal Nehru National Institute of Technology (NIT) Allahabad</p>
+                            </div>
+                            <span class="text-gray-500 text-sm mt-2 md:mt-0">2016 - 2020</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Completed undergraduate studies with a strong foundation in electronics and computing systems.</p>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Relevant Courses:</h4>
+                            <p class="text-gray-600">Data Structures, Operating Systems, Computer Networks, Software Engineering, Programming</p>
+                        </div>
+                    </div>
+                    <!-- MNNIT image -->
+                    <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+                        <img src="photos/mnnit.jpg" alt="MNNIT" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Honors & Achievements</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-crown text-9xl text-indigo-600"></i>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-4">
+                            <i class="fas fa-award text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Leadership & Fellowships</h3>
+                    </div>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">Goldman Sachs Mentorship (2020):</strong>
+                                <p class="text-sm text-gray-600">Selected out of a nationwide ideathon from premium colleges (IITs/IIMs) for the Women Emerging in Finance program.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">HPAIR Delegate (2021):</strong>
+                                <p class="text-sm text-gray-600">Selected for the Harvard Project for Asian and International Relations (< 20% selection rate).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">Global Governance Initiative Scholar:</strong>
+                                <p class="text-sm text-gray-600">Invite-only experiential learning program focusing on Tech Ethics and Product Management.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                        <i class="fas fa-star text-9xl text-yellow-500"></i>
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mr-4">
+                            <i class="fas fa-graduation-cap text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Academic Excellence</h3>
+                    </div>
+
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-medal text-yellow-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">UP Kanya Vidya Dhan Scholarship:</strong>
+                                <p class="text-sm text-gray-600">Awarded by Govt. of Uttar Pradesh for securing top tier 12th-grade scores (99.02 percentile).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-medal text-yellow-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">Competitive Exam Scores:</strong>
+                                <p class="text-sm text-gray-600">GRE: 324/340 | NEET: 96.36%ile | CBSE Merit Certificate (10/10 CGPA).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-medal text-yellow-500 mt-1 mr-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="text-gray-900">Olympiad Rankings:</strong>
+                                <p class="text-sm text-gray-600">Ranked 4th in City (English Olympiad) and qualified State Level NTSE exam.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Writing -->
+    <section id="writing" class="py-20 bg-gray-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Writing</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+                <p class="mt-4 text-gray-600">Sharing insights on Artificial Intelligence and technology.</p>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="https://medium.com/p/ab48a14a578d" target="_blank" class="group relative w-full max-w-2xl bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col md:flex-row">
+                    
+                    <div class="bg-black w-full md:w-1/3 flex items-center justify-center p-8 group-hover:bg-gray-900 transition">
+                        <i class="fab fa-medium text-6xl text-white"></i>
+                    </div>
+                    
+                    <div class="p-8 w-full md:w-2/3 flex flex-col justify-center">
+                        <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold mb-1">Published on Medium</div>
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-indigo-600 transition mb-3">
+                            Exploring the Frontiers of AI
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-2">
+                            A deep dive into the evolving landscape of Artificial Intelligence, discussing its impact.
+                        </p>
+                        <div class="flex items-center text-gray-900 font-medium group-hover:translate-x-2 transition transform">
+                            Read Article <i class="fas fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-12 relative overflow-hidden">
+        <!-- Book image as subtle background -->
+        <div class="absolute inset-0 opacity-5">
+            <img src="photos/book.jpeg" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-2xl font-bold mb-6">Let's Connect</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://linkedin.com/in/nabanita-bag" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/nabanitabag" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-github"></i></a>
+                <a href="https://x.com/nabanita_bag" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/nabanita._bag/" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:nabanita.m.bag@gmail.com" class="text-gray-400 hover:text-white transition text-2xl"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; <script>document.write(new Date().getFullYear())</script> Nabanita Bag. All rights reserved. <br>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
     </script>
 </body>
 </html>

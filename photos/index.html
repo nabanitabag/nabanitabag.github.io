@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | nbag</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom enhancements */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: move 10s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Background Blobs for Visual Flair -->
+    <div class="blob bg-purple-300 w-64 h-64 rounded-full top-0 left-0 mix-blend-multiply"></div>
+    <div class="blob bg-yellow-300 w-64 h-64 rounded-full top-0 right-0 mix-blend-multiply animation-delay-2000"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-bold text-2xl text-indigo-600">nbag.</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">About</a>
+                    <a href="#projects" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Projects</a>
+                    <a href="#contact" class="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium transition">Contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-indigo-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden bg-white border-b border-gray-200" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#projects" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="block text-indigo-600 font-bold hover:bg-gray-50 px-3 py-2 rounded-md text-base">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center">
+        <div class="w-full md:w-1/2 pr-0 md:pr-12 text-center md:text-left mt-8 md:mt-0">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-4">
+                Hi, I'm <span class="text-indigo-600">User</span>
+            </h1>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                A Computer Science student at UW-Madison passionate about building scalable software, solving complex algorithms, and exploring systems programming.
+            </p>
+            <div class="flex justify-center md:justify-start space-x-4">
+                <a href="#projects" class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1">View Work</a>
+                <a href="https://github.com" target="_blank" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition"><i class="fab fa-github mr-2"></i>GitHub</a>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                <!-- Replace src below with your actual photo path, e.g., 'me.jpg' -->
+                <img src="https://placehold.co/400x400/indigo/white?text=Profile+Photo" alt="Profile" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Technical Skills</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                        <i class="fas fa-code text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Languages</h3>
+                    <p class="text-gray-600">Java, Python, C, C++, JavaScript, SQL</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                        <i class="fas fa-server text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Systems & Tools</h3>
+                    <p class="text-gray-600">Linux/Unix, Git, Docker, AWS, Bash Scripting</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
+                        <i class="fas fa-layer-group text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Web Technologies</h3>
+                    <p class="text-gray-600">HTML5, CSS3, React, Node.js, Tailwind CSS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Recent Projects</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Project+Thumbnail" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Badger Map App</h3>
+                        <p class="text-gray-600 text-sm mb-4">A shortest-path algorithm visualization for the UW-Madison campus map using Java and Dijkstra's algorithm.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">Java</span>
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">Graph Theory</span>
+                        </div>
+                        <a href="#" class="text-indigo-600 font-medium text-sm hover:text-indigo-800">View Code &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Project+Thumbnail" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Memory Allocator</h3>
+                        <p class="text-gray-600 text-sm mb-4">A custom heap memory allocator implementation in C featuring explicit free lists and best-fit placement.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">C</span>
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">Systems</span>
+                        </div>
+                        <a href="#" class="text-indigo-600 font-medium text-sm hover:text-indigo-800">View Code &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300">
+                    <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Project+Thumbnail" alt="Project 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Portfolio Website</h3>
+                        <p class="text-gray-600 text-sm mb-4">This responsive portfolio website built with HTML5 and Tailwind CSS, hosted on CS servers.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">HTML</span>
+                            <span class="px-2 py-1 bg-gray-100 text-xs text-gray-600 rounded">CSS</span>
+                        </div>
+                        <a href="#" class="text-indigo-600 font-medium text-sm hover:text-indigo-800">View Code &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold mb-6">Let's Connect</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-github"></i></a>
+                <a href="mailto:your_email@wisc.edu" class="text-gray-400 hover:text-white transition text-2xl"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; <script>document.write(new Date().getFullYear())</script> nbag. All rights reserved. <br>
+                Hosted on UW-Madison CS Servers.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
