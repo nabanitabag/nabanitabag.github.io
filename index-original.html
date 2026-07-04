@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Nabanita Bag</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom enhancements */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: move 10s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+        .glasses-decoration {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('photos/glasses.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Background Blobs for Visual Flair -->
+    <div class="blob bg-purple-300 w-64 h-64 rounded-full top-0 left-0 mix-blend-multiply"></div>
+    <div class="blob bg-yellow-300 w-64 h-64 rounded-full top-0 right-0 mix-blend-multiply animation-delay-2000"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-bold text-2xl text-indigo-600">Portfolio</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#research" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Research</a>
+                    <a href="#experience" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Experience</a>
+                    <a href="#education" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Education</a>
+                    <a href="#achievements" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Achievements</a>
+                    <a href="#projects" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Projects</a>
+                    <a href="#contact" class="bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-md text-sm font-medium transition">Contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-indigo-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div class="md:hidden hidden bg-white border-b border-gray-200" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#experience" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#research" class="text-gray-600 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition">Research</a>
+                <a href="#education" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Education</a>
+                <a href="#projects" class="block text-gray-600 hover:text-indigo-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="block text-indigo-600 font-bold hover:bg-gray-50 px-3 py-2 rounded-md text-base">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center relative">
+        <div class="w-full md:w-3/5 pr-0 md:pr-12 text-center md:text-left mt-8 md:mt-0 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6">
+                Hi, I'm <span class="text-indigo-600">Nabanita.</span>
+            </h1>
+            
+            <div class="space-y-6 text-gray-700 leading-relaxed">
+                <p class="text-lg">
+                    I'm a techie who loves building meaningful technology. Documenting my journey through tech, life, and learning here.
+                </p>
+
+                <div class="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
+                <!-- Resume Button -->
+                <a href="https://docs.google.com/document/d/1V8U30cr_o8vTAjANumb8y8-JBsWjqTBRhNV6pSLXMy0" target="_blank" class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-1 flex items-center">
+                    <i class="fas fa-file-alt mr-2"></i> Resume
+                </a>
+                <div class="flex items-center space-x-3 ml-2">
+                    <a href="https://github.com/nabanitabag" target="_blank" class="text-gray-500 hover:text-gray-900 text-2xl transition"><i class="fab fa-github"></i></a>
+                    <a href="mailto:nabanita.m.bag@gmail.com" class="text-gray-500 hover:text-red-500 text-2xl transition"><i class="fas fa-envelope"></i></a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-2/5 flex justify-center relative z-10 -mt-8 md:-mt-12">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                <img src="photos/fire.jpeg" alt="Nabanita Bag" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Techinal Skills Section -->
+    <section id="skills" class="py-10 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Technical Skills and Experience</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <!-- <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                        <i class="fas fa-code text-xl"></i>
+                    </div> -->
+                    <h3 class="text-xl font-bold mb-2">Languages & Frameworks</h3>
+                    <p class="text-gray-600 text-sm">Java, Python, C++, JavaScript, Spring Boot</p>
+                </div>
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <!-- <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                        <i class="fas fa-cloud text-xl"></i>
+                    </div> -->
+                    <h3 class="text-xl font-bold mb-2">Systems</h3>
+                    <p class="text-gray-600 text-sm">AWS (DynamoDB, SQS, SNS), Docker, Kubernetes, CI/CD</p>
+                </div>
+                <div class="p-6 border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition bg-white relative z-10">
+                    <!-- <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4">
+                        <i class="fas fa-brain text-xl"></i>
+                    </div> -->
+                    <h3 class="text-xl font-bold mb-2">Machine Learning/AI</h3>
+                    <p class="text-gray-600 text-sm">PyTorch, LLM Integrations, RAG, MCP</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-10 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <!-- <h2 class="text-3xl font-bold text-gray-900">Experience</h2> -->
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-indigo-600 relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Senior Member of Technical Staff</h3>
+                            <p class="text-indigo-600 font-medium">Salesforce | Bangalore</p>
+                        </div>
+                        <span class="text-gray-500 text-sm mt-2 md:mt-0">Dec 2021 - Aug 2025</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base">
+                        <h4 class="font-bold">Tableau Cloud Manager and Email and Notification services</h3>
+                        <li>Developed and deployed a distributed, scalable multi-tenant cloud solution for user management using DynamoDB and SQS.</li>
+                        <li>Delivered key global control plane services supporting 41K+ sites and 5.5M+ users.</li>
+                        <li>Designed site migration flows to support migration of sites with 200K+ users.</li>
+                        <li>Took initiatives to reduce high-severity issues and decrease turnaround time for fixes. Won a company hackathon with a project on auto-deleting and scaling Tableau Pods.</li>
+                        <h4 class="font-bold mt-2">Energy and Utilities applications</h3>
+                        <li>Served 10M+ customers by building 3 Enterprise applications using Java, Spring, SFDC including a B2C self-serve portal.</li>
+                        <li>Upgraded functionality and user experience by developing 12 REST APIs & 30+ Lightning Web Components.</li>
+                    </ul>
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 md:w-48 md:h-48 hidden md:block">
+                        <img src="photos/sf.jpeg" alt="Salesforce" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-blue-500 relative overflow-hidden flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Engineer</h3>
+                            <p class="text-blue-600 font-medium">Qualcomm | Hyderabad</p>
+                        </div>
+                        <span class="text-gray-500 text-sm mt-2 md:mt-0">July 2020 - Dec 2021</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm md:text-base">
+                        <li>Shipped an improved enhanced logging mechanism for xSCO protocol to detect various levels of latencies.</li> 
+                        <li>Worked on connection link quality algorithm for Bluetooth Audio software from providing design docs to implementation.</li>
+                        <li>Collaborated with partners like Google and Samsung on feature integration.</li>
+                        <li>Wrote Python scripts to convert raw Snoop text logs to audio waveforms.</li>
+                    </ul>
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 md:w-48 md:h-48 hidden md:block">
+                        <img src="photos/qualcomm.jpeg" alt="Qualcomm" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-10 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Research</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Exploring the intersection of Reinforcement Learning and LLMs.</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500 hover:shadow-md transition">
+                    <div class="flex flex-col md:flex-row justify-between md:items-center">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Graduate Research: Reinforcement Learning</h3>
+                            <p class="text-sm text-gray-500 mb-2">University of Wisconsin-Madison | Advisor: <a href="https://pages.cs.wisc.edu/~jphanna/" target="_blank" class="text-indigo-600 hover:underline hover:text-indigo-800">Prof. Josiah Hanna</a></p>
+                        </div>
+                        <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded w-fit">Current</span>
+                    </div>
+                    <p class="text-gray-700 mt-2">
+                        Working on Time-Pressure-Aware Reasoning in Large Language Models. 
+                        Focusing on optimizing the trade-off between inference latency and reasoning accuracy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internship Experience Section -->
+    <section id="internships" class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-900">Internship</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-2 rounded"></div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-cyan-500 relative overflow-hidden flex flex-col md:flex-row items-center gap-4">
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">Technology Intern</h3>
+                                <p class="text-cyan-600 font-medium">American Express | Bangalore</p>
+                            </div>
+                            <span class="text-gray-500 text-sm mt-1 md:mt-0">Summer 2019</span>
+                        </div>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm">
+                            <li>Engineered a database abstraction layer using Java and Redis to modernize payment networks.</li>
+                            <li>Optimized query times and implemented graceful shutdown/health checks.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-shrink-0 w-24 h-24 md:w-32 md:h-32 hidden md:block">
+                        <img src="photos/amex.jpg" alt="American Express" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-10 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Projects</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100 flex flex-col">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-code-branch text-6xl text-green-300"></i>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Open Source: EasySSL</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-1">Upgraded core platform of the mutual-TLS Spring Boot library to Spring Boot 3.5.0 and Java 17, resolving dependencies and legacy code.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Java</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Spring Boot</span>
+                        </div>
+                        <a href="http://github.com/dtreskunov/easyssl/pull/29/changes" target="_blank" class="text-indigo-600 font-medium text-sm hover:text-indigo-800 transition inline-flex items-center">
+                            View PR <i class="fas fa-external-link-alt ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100 flex flex-col">
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center overflow-hidden">
+                        <img src="photos/tabagent.png" alt="Tableau Accessibility Agent" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Tableau Accessibility Agent</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-1">Gen AI voice agent to simplify Tableau user/site management via a natural language interface using Salesforce Einstein Transcribe.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Gen AI</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">LLM</span>
+                        </div>
+                        <a href="https://github.com/nabanitabag/voiceAgent" target="_blank" class="text-indigo-600 font-medium text-sm hover:text-indigo-800 transition inline-flex items-center">
+                            View Details <i class="fab fa-github ml-1.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 border border-gray-100 relative flex flex-col">
+                    <div class="h-48 bg-orange-100 flex items-center justify-center relative">
+                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-orange-600 text-xs font-bold px-3 py-1 rounded-full border border-orange-200 shadow-sm flex items-center">
+                            <i class="fas fa-trophy mr-1.5"></i> Google AI Finalist '25
+                        </div>
+                        <i class="fas fa-newspaper text-6xl text-orange-300"></i>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Khabri: AI News Agent</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-1">Autonomous news aggregator built for the Google Agentic AI Day Hackathon. Orchestrates multiple agents to fetch and summarize real-time news.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Agentic AI</span>
+                            <span class="px-2 py-1 bg-white border border-gray-200 text-xs text-gray-600 rounded">Google Cloud</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/nabanitabag/khabri-backend" target="_blank" class="text-indigo-600 font-medium text-sm hover:text-indigo-800 transition flex items-center">
+                                Backend <i class="fab fa-github ml-1.5"></i>
+                            </a>
+                            <a href="https://github.com/nabanitabag/khabri-frontend" target="_blank" class="text-indigo-600 font-medium text-sm hover:text-indigo-800 transition flex items-center">
+                                Frontend <i class="fab fa-github ml-1.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-10 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Education</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto mt-4 rounded"></div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-indigo-600 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <h3 class="text-xl font-bold text-gray-900">Master of Science in Computer Sciences</h3>
+                            <div class="flex items-center gap-3 mt-1 md:mt-0">
+                                <span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-0.5 rounded border border-green-200">GPA: 4.0</span>
+                                <span class="text-gray-500 text-sm">Aug 2025 - Dec 2026</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center flex-wrap gap-2">
+                            <p class="text-indigo-600 font-medium">University of Wisconsin - Madison</p>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2 py-0.5 rounded-full border border-indigo-100">
+                                <i class="fas fa-trophy mr-1"></i>Top 15 CS in US
+                            </span>
+                        </div>
+                        
+                        <div class="text-gray-600 text-sm space-y-1">
+                            <p><span class="font-semibold text-gray-900">Teaching/Project Assistant:</span> CS 537: Operating Systems, CS 640: Computer Networks</p>
+                            <p><span class="font-semibold text-gray-900">Relevant Courses:</span> CS 639: Foundation models, CS 839: Mathematical principles of RL, CS 760: Machine Learning, CS 540: Artificial Intelligence</p>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 hidden md:block">
+                        <img src="photos/morgridgeNab.jpeg" alt="Morgridge" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-l-4 border-blue-500 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-1 space-y-2">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <h3 class="text-xl font-bold text-gray-900">Bachelor of Technology</h3>
+                            <span class="text-gray-500 text-sm mt-1 md:mt-0">2016 - 2020</span>
+                        </div>
+
+                        <div class="flex items-center flex-wrap gap-2">
+                            <p class="text-blue-600 font-medium">Motilal Nehru National Institute of Technology (NIT) Allahabad</p>
+                            <span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full border border-blue-100">
+                                <i class="fas fa-landmark mr-1"></i>Institute of National Importance
+                            </span>
+                        </div>
+                        
+                        <div class="text-gray-600 text-sm space-y-1">
+                            <p>Electronics and Communication Engineering.</p>
+                            <p><span class="font-semibold text-gray-900">Relevant Courses:</span> Data Structures, Operating Systems, Computer Networks, Software Engineering.</p>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 hidden md:block">
+                        <img src="photos/mnnit.jpg" alt="MNNIT" class="w-full h-full object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements and Writing Section -->
+    <section id="achievements" class="py-10 bg-white">
+        <div class="glasses-decoration"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">   
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <div>
+                    <div class="text-left mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900">Honors & Achievements</h2>
+                        <div class="w-16 h-1 bg-indigo-600 mt-2 rounded"></div>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition relative overflow-hidden group h-full">
+                        <!-- <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                            <i class="fas fa-crown text-9xl text-indigo-600"></i>
+                        </div> -->
+                        
+                        <ul class="space-y-6 relative z-10">
+                            <li class="flex items-start">
+                                <div class="mt-1 mr-3 flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block text-lg">Goldman Sachs Mentorship</strong>
+                                    <p class="text-gray-600">Selected for Women Emerging in Finance program.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="mt-1 mr-3 flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block text-lg">HPAIR Delegate (2021)</strong>
+                                    <p class="text-gray-600">Harvard Project for Asian and International Relations.</p>
+                                </div>
+                            </li>
+                             <li class="flex items-start">
+                                <div class="mt-1 mr-3 flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block text-lg">GGI Scholar</strong>
+                                    <p class="text-gray-600">Tech Ethics and Product Management fellow.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="mt-1 mr-3 flex-shrink-0 w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block text-lg">UP Kanya Vidya Dhan</strong>
+                                    <p class="text-gray-600">Govt. Award for top tier 12th-grade scores (99.02%ile).</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="writing">
+                    <div class="text-left mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900">Writing</h2>
+                        <div class="w-16 h-1 bg-indigo-600 mt-2 rounded"></div>
+                    </div>
+
+                    <a href="https://medium.com/p/062d19fb74f3" target="_blank" class="block h-full">
+                        <div class="group relative bg-gray-50 border border-gray-100 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
+                            
+                            <div class="bg-black h-48 w-full flex items-center justify-center group-hover:bg-gray-900 transition relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-gray-900 to-transparent opacity-50"></div>
+                                <i class="fab fa-medium text-6xl text-white relative z-10"></i>
+                            </div>
+                            
+                            <div class="p-8 flex-1 flex flex-col justify-center">
+                                <div class="flex items-center space-x-2 text-sm text-indigo-600 font-semibold mb-3">
+                                    <i class="fas fa-pen-nib"></i>
+                                    <span>Latest Article</span>
+                                </div>
+                                
+                                <h3 class="text-2xl font-bold text-gray-900 group-hover:text-indigo-600 transition mb-4 leading-tight">
+                                    Questions We Were Afraid To Ask
+                                </h3>
+                                
+                                <p class="text-gray-600 mb-6 flex-1">
+                                    A deep dive into the questions that shape our understanding of AI, technology, and career growth, but often go unasked.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-white py-12 relative overflow-hidden">
+        <!-- glasses image as subtle background -->
+        <div class="absolute inset-0 opacity-5">
+            <img src="photos/glasses.jpg" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-2xl font-bold mb-6">Let's Connect</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://linkedin.com/in/nabanita-bag" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://x.com/nabanita_bag" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/nabanita._bag/" target="_blank" class="text-gray-400 hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; <script>document.write(new Date().getFullYear())</script> Nabanita Bag. All rights reserved. <br>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
